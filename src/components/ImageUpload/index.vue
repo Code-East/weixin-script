@@ -58,15 +58,24 @@
         imageURL:''
       }
     },
-    watch: {},
+    watch: {
+      value(newval){
+        this.imageURL = newval
+      }
+    },
+    created(){
+      if (this.value) {
+        this.imageURL = this.value
+      }
+    },
     methods: {
       removeImage() {
         this.$emit('input', '')
       },
       handleUploadSuccess(res) {
-        const base = process.env.NODE_ENV == 'development' ? 'http://122.51.118.246:9999' : '/'
+        const base = process.env.NODE_ENV == 'development' ? 'http://122.51.118.246/image' : '/'
         this.imageURL = base + res.path
-        this.$emit('input', res.path)
+        this.$emit('input', this.imageURL)
         this.loading.close()
       },
       handleBeforeUpload() {

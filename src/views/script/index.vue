@@ -17,7 +17,12 @@
         ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-select v-model="queryForm.type" size="small" placeholder="类型">
+        <el-select
+          v-model="queryForm.type"
+          size="small"
+          placeholder="类型"
+          clearable
+        >
           <el-option
             v-for="item in typeOptions"
             :key="item.key"
@@ -32,6 +37,7 @@
           v-model="queryForm.scriptType"
           size="small"
           placeholder="类别"
+          clearable
         >
           <el-option
             v-for="item in scriptTypeOptions"
@@ -57,8 +63,16 @@
       :data="dataList"
       element-loading-text="Loading"
     >
-      <el-table-column label="名称" prop="name" align="center"></el-table-column>
-      <el-table-column label="人数" prop="number" align="center"></el-table-column>
+      <el-table-column
+        label="名称"
+        prop="name"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        label="人数"
+        prop="number"
+        align="center"
+      ></el-table-column>
       <el-table-column label="类型" align="center">
         <template slot-scope="scope">
           <div>
@@ -66,7 +80,11 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="价格" prop="price" align="center"></el-table-column>
+      <el-table-column
+        label="价格"
+        prop="price"
+        align="center"
+      ></el-table-column>
       <el-table-column label="是否适合新手" align="center">
         <template slot-scope="scope">
           <div>
@@ -106,33 +124,72 @@
     <el-dialog
       :title="title"
       :visible.sync="dialogVisible"
-      width="40%"
+      width="50%"
       :before-close="handleClose"
-      top="5vh"
+      top="2vh"
       :close-on-click-modal="false"
     >
       <el-form ref="form" :model="form" :rules="rules" label-width="100px">
-        <el-form-item label="剧本名称" prop="name">
-          <el-input v-model="form.name"></el-input>
-        </el-form-item>
-        <el-form-item label="人数" prop="number">
-          <el-input v-model="form.number"></el-input>
-        </el-form-item>
-        <el-form-item label="类型" prop="type">
-          <el-select
-            v-model="form.type"
-            placeholder="请选择剧本类型"
-            style="width: 100%"
-          >
-            <el-option
-              v-for="item in typeOptions"
-              :key="item.key"
-              :label="item.value"
-              :value="item.key"
-            >
-            </el-option>
-          </el-select>
-        </el-form-item>
+        <el-row :gutter="10">
+          <el-col :span="12">
+            <el-form-item label="剧本名称" prop="name">
+              <el-input v-model="form.name"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="人数" prop="number">
+              <el-input v-model="form.number"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="10">
+          <el-col :span="12">
+            <el-form-item label="类型" prop="type">
+              <el-select
+                v-model="form.type"
+                placeholder="请选择剧本类型"
+                style="width: 100%"
+              >
+                <el-option
+                  v-for="item in typeOptions"
+                  :key="item.key"
+                  :label="item.value"
+                  :value="item.key"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="价格" prop="price">
+              <el-input
+                v-model="form.price"
+                placeholder="请输入价格"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="10">
+          <el-col :span="12">
+            <el-form-item label="是否适合新手" prop="newPlayer">
+              <el-switch
+                v-model="form.newPlayer"
+                active-text="是"
+                inactive-text="否"
+              ></el-switch>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="是否反串" prop="fanchuan">
+              <el-switch
+                v-model="form.fanchuan"
+                active-text="是"
+                inactive-text="否"
+              ></el-switch>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
         <el-form-item label="类别" prop="scriptType">
           <el-select
             v-model="form.scriptType"
@@ -149,27 +206,10 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="价格" prop="price">
-          <el-input v-model="form.price" placeholder="请输入价格"></el-input>
-        </el-form-item>
-        <el-form-item label="封面" prop="image">
-          <image-upload v-model="form.image"></image-upload>
-        </el-form-item>
-        <el-form-item label="是否适合新手" prop="newPlayer">
-          <el-switch
-            v-model="form.newPlayer"
-            active-text="是"
-            inactive-text="否"
-          ></el-switch>
-        </el-form-item>
-        <el-form-item label="是否反串" prop="fanchuan">
-          <el-switch
-            v-model="form.fanchuan"
-            active-text="是"
-            inactive-text="否"
-          ></el-switch>
-        </el-form-item>
 
+        <el-form-item label="封面" prop="image">
+          <image-upload v-model="form.image" ref="imageUpload"></image-upload>
+        </el-form-item>
         <el-form-item label="人物介绍" prop="peopleDescribe">
           <el-input
             type="textarea"
@@ -177,7 +217,7 @@
             v-model="form.peopleDescribe"
           ></el-input>
         </el-form-item>
-        <el-form-item label="描述" prop="scriptDescribe">
+        <el-form-item label="剧情描述" prop="scriptDescribe">
           <el-input
             type="textarea"
             :rows="3"
@@ -265,6 +305,7 @@ export default {
           { required: true, message: "请输入人物介绍", trigger: "blue" },
         ],
         scriptDescribe: [{ required: true, message: "描述", trigger: "blue" }],
+        image:[{ required: true, message: "请上传剧本封面", trigger: "blue" }],
       },
     };
   },
@@ -300,6 +341,7 @@ export default {
     },
     handleClose() {
       this.$refs.form.resetFields();
+      this.$refs.imageUpload.imageURL = "";
       this.form = {};
       this.dialogVisible = false;
     },
@@ -318,6 +360,7 @@ export default {
         type: "warning",
       })
         .then(() => {
+          console.log("当前删除", row);
           delScriptApi(row.id)
             .then((res) => {
               this.$message.success("删除成功");
@@ -339,7 +382,7 @@ export default {
             updateScriptApi(this.form)
               .then((res) => {
                 this.$message.success("编辑成功");
-                this.dialogVisible = false;
+                this.handleClose();
                 this.getList();
               })
               .catch((err) => {
@@ -349,11 +392,12 @@ export default {
             addScriptApi(this.form)
               .then((res) => {
                 this.$message.success("增加成功");
-                this.dialogVisible = false;
+                this.handleClose();
                 this.getList();
               })
               .catch((err) => {
                 console.log("增加失败:", err);
+                this.$message.error("增加失败");
               });
           }
         } else {
