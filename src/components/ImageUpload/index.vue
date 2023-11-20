@@ -73,7 +73,7 @@
         this.$emit('input', '')
       },
       handleUploadSuccess(res) {
-        const base = process.env.NODE_ENV == 'development' ? 'http://122.51.118.246/image' : '/'
+        const base = 'https://www.jijiye.cn/image'
         this.imageURL = base + res.path
         this.$emit('input', this.imageURL)
         this.loading.close()
