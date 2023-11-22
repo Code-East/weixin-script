@@ -137,8 +137,20 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
+            <el-form-item label="剧本时长" prop="scriptTime">
+              <el-input v-model.number="form.scriptTime"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="10">
+          <el-col :span="12">
             <el-form-item label="人数" prop="number">
               <el-input v-model="form.number"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="最大人数" prop="maxNumber">
+              <el-input v-model="form.maxNumber"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -305,6 +317,9 @@ export default {
       rules: {
         name: [{ required: true, message: "请输入剧本名称", trigger: "blur" }],
         number: [{ required: true, message: "请输入人数", trigger: "blur" }],
+        maxNumber: [
+          { required: true, message: "请输入最大人数", trigger: "blur" },
+        ],
         type: [
           { required: true, message: "请选择剧本类型", trigger: "change" },
         ],
@@ -317,6 +332,7 @@ export default {
         ],
         scriptDescribe: [{ required: true, message: "描述", trigger: "blue" }],
         image: [{ required: true, message: "请上传剧本封面", trigger: "blue" }],
+        scriptTime:[{ required: true, message: "请输入剧本时长", trigger: "blue" },]
       },
     };
   },

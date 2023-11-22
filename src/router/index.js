@@ -42,9 +42,21 @@ export const constantRoutes = [
     component: () => import("@/views/404"),
     hidden: true,
   },
-
   {
     path: "/",
+    component: Layout,
+    redirect: "/system",
+    children: [
+      {
+        path: "system",
+        name: "System",
+        component: () => import("@/views/system/index"),
+        meta: { title: "系统配置", icon: "dashboard" },
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
     component: Layout,
     redirect: "/dashboard",
     children: [

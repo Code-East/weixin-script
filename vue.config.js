@@ -39,7 +39,7 @@ module.exports = {
     // 开发环境默认开启反向代理，如果不需要请自行注释
     proxy: {
       '/api': {
-        target: 'http://122.51.118.246:9999',
+        target: 'https://www.jijiye.cn',
         changeOrigin: true,
         ws: true, // enable websocket proxy
         pathRewrite:{'^/api':''},
