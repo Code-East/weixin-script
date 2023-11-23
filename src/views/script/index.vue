@@ -64,15 +64,24 @@
       element-loading-text="Loading"
     >
       <el-table-column
+        label="封面"
+        align="center"
+      >
+      <template slot-scope="scope">
+        <el-image lazy style="width: 80px;height: 120px;" :src="scope.row.image" :preview-src-list="[scope.row.image]"></el-image>
+      </template>
+    </el-table-column>
+      <el-table-column
         label="名称"
         prop="name"
         align="center"
       ></el-table-column>
       <el-table-column
-        label="人数"
-        prop="number"
+        label="价格"
+        prop="price"
         align="center"
       ></el-table-column>
+      
       <el-table-column label="类型" align="center">
         <template slot-scope="scope">
           <div>
@@ -81,11 +90,21 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="价格"
-        prop="price"
+        label="最小人数"
+        prop="number"
         align="center"
       ></el-table-column>
-      <el-table-column label="是否适合新手" align="center">
+      <el-table-column
+        label="最大人数"
+        prop="maxNumber"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        label="时长/分钟"
+        prop="scriptTime"
+        align="center"
+      ></el-table-column>
+      <!-- <el-table-column label="是否适合新手" align="center">
         <template slot-scope="scope">
           <div>
             {{ scope.row.newPlayer ? "是" : "否" }}
@@ -98,7 +117,7 @@
             {{ scope.row.fanchuan ? "是" : "否" }}
           </div>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <!-- <el-table-column label="创建时间" prop="createDate"></el-table-column> -->
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
@@ -332,7 +351,9 @@ export default {
         ],
         scriptDescribe: [{ required: true, message: "描述", trigger: "blue" }],
         image: [{ required: true, message: "请上传剧本封面", trigger: "blue" }],
-        scriptTime:[{ required: true, message: "请输入剧本时长", trigger: "blue" },]
+        scriptTime: [
+          { required: true, message: "请输入剧本时长", trigger: "blue" },
+        ],
       },
     };
   },
