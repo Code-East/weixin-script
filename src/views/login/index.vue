@@ -62,6 +62,9 @@
         <span> password: any</span>
       </div> -->
     </el-form>
+    <div class="footer">
+      <span>浙ICP备2023040178号</span>
+    </div>
   </div>
 </template>
 
@@ -110,8 +113,8 @@ export default {
             .dispatch("user/login", this.loginForm)
             .then(() => {
               console.log(this.$router);
-              this.$router.push('/');
-              this.loading = false; 
+              this.$router.push("/");
+              this.loading = false;
             })
             .catch(() => {
               this.loading = false;
@@ -234,5 +237,12 @@ $light_gray: #eee;
     cursor: pointer;
     user-select: none;
   }
+}
+.footer{
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
 }
 </style>
