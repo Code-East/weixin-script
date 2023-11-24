@@ -100,7 +100,7 @@
         align="center"
       ></el-table-column>
       <el-table-column
-        label="时长/分钟"
+        label="时长/小时"
         prop="scriptTime"
         align="center"
       ></el-table-column>
