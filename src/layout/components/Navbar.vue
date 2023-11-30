@@ -7,7 +7,7 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-         <span>用户名</span>
+         <span>{{ userinfo.username }}</span>
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
@@ -35,7 +35,11 @@ export default {
     ...mapGetters([
       'sidebar',
       'avatar'
-    ])
+    ]),
+    userinfo(){
+      const userinfo = JSON.parse(localStorage.getItem('userinfo'))
+      return userinfo
+    }
   },
   methods: {
     toggleSideBar() {

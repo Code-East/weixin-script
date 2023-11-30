@@ -21,7 +21,7 @@
       :data="dataList"
       element-loading-text="Loading"
     >
-      <el-table-column align="center" label="头像">
+      <!-- <el-table-column align="center" label="头像">
         <template slot-scope="scope">
           <el-image
             style="width: 50px; height: 50px"
@@ -30,17 +30,27 @@
           >
           </el-image>
         </template>
-      </el-table-column>
-      <el-table-column
+      </el-table-column> -->
+      <!-- <el-table-column
         align="center"
         label="用户名"
         prop="username"
+      ></el-table-column> -->
+      <el-table-column
+        align="center"
+        label="微信昵称"
+        prop="nickname"
       ></el-table-column>
       <el-table-column
         align="center"
-        label="昵称"
+        label="姓名"
         prop="name"
       ></el-table-column>
+      <el-table-column align="center" label="性别">
+        <template slot-scope="scope">
+          <span>{{ scope.row.gender ==  0 ? '男' : '女' }}</span>
+        </template>
+      </el-table-column>
       <el-table-column
         align="center"
         label="余额"
@@ -133,7 +143,7 @@ export default {
             .then((res) => {
               this.$message.success("修改成功");
               this.getList();
-              this.dialogVisible = false
+              this.dialogVisible = false;
             })
             .catch((err) => {
               console.log("修改失败", err);

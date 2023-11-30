@@ -35,6 +35,8 @@ const actions = {
       login({ username: username.trim(), password: password }).then(response => {
         const { data } = response
         commit('SET_TOKEN', data)
+        localStorage.setItem('userinfo',JSON.stringify(userInfo))
+        console.log('登录成功',localStorage.getItem('userinfo'));
         setToken(data)
         resolve()
       }).catch(error => {
