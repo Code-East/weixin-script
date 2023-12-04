@@ -64,7 +64,7 @@ export const constantRoutes = [
         path: "dashboard",
         name: "Dashboard",
         component: () => import("@/views/dashboard/index"),
-        meta: { title: "充值设置", icon: "dashboard" },
+        meta: { title: "充值设置", icon: "el-icon-setting" },
       },
     ],
   },
@@ -76,7 +76,7 @@ export const constantRoutes = [
         path: "user",
         name: "User",
         component: () => import("@/views/user/index"),
-        meta: { title: "用户", icon: "form" },
+        meta: { title: "用户", icon: "el-icon-user" },
       },
     ],
   },
@@ -90,7 +90,37 @@ export const constantRoutes = [
         component: () => import("@/views/script/index"),
         meta: {
           title: "剧本",
-          icon: "nested",
+          icon: "el-icon-document",
+        },
+      },
+    ],
+  },
+  {
+    path: "/recharge",
+    component: Layout,
+    children: [
+      {
+        path: "recharge",
+        name: "Recharge",
+        component: () => import("@/views/recharge/index"),
+        meta: {
+          title: "充值记录",
+          icon: "el-icon-tickets",
+        },
+      },
+    ],
+  },
+  {
+    path: "/consumption",
+    component: Layout,
+    children: [
+      {
+        path: "consumption",
+        name: "Consumption",
+        component: () => import("@/views/consumption/index"),
+        meta: {
+          title: "消费记录",
+          icon: "el-icon-key",
         },
       },
     ],

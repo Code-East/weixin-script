@@ -18,7 +18,7 @@ export function getMoneyType(data) {
 export function delMoneyType(id) {
     return request({
       url: `/moneyType/${id}`,
-      method:'del'
+      method:'delete'
     });
   }
   
