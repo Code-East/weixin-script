@@ -1,18 +1,13 @@
 <template>
   <div class="app-container">
     <!-- 搜索框 -->
-    <!-- <el-input
-          v-model="queryForm.startTime"
-          placeholder="开始时间"
-          size="small"
-        ></el-input> -->
     <el-form inline>
       <el-form-item>
         <el-date-picker
           v-model="queryForm.startTime"
-          type="date"
+          type="datetime"
           size="small"
-          value-format="yyyy-MM-dd"
+          value-format="yyyy-MM-dd hh:mm:ss"
           placeholder="选择开始日期"
         >
         </el-date-picker>
@@ -20,9 +15,9 @@
       <el-form-item>
         <el-date-picker
           v-model="queryForm.endTime"
-          type="date"
+          type="datetime"
           size="small"
-          value-format="yyyy-MM-dd"
+          value-format="yyyy-MM-dd hh:mm:ss"
           placeholder="选择结束日期"
         >
         </el-date-picker>
@@ -69,8 +64,13 @@
         align="center"
       ></el-table-column>
       <el-table-column
+        label="赠送金额"
+        prop="moneyType.giftAmount"
+        align="center"
+      ></el-table-column>
+      <el-table-column
         label="充值时间"
-        prop="moneyType.createDate"
+        prop="createDate"
         align="center"
       ></el-table-column>
     </el-table>
@@ -96,6 +96,8 @@ export default {
       queryForm: {
         currPage: 1,
         pageSize: 10,
+        startTime: "",
+        endTime: "",
       },
       total: 0,
       dataList: [],
@@ -104,6 +106,7 @@ export default {
   },
   created() {
     this.getList();
+    this.setDefaultDate();
   },
   methods: {
     getList() {
@@ -111,15 +114,29 @@ export default {
       getRechargeApi(this.queryForm)
         .then((res) => {
           console.log("充值记录", res);
-          const { records,total } = res.data
-          this.dataList = records
-          this.total = total
+          const { records, total } = res.data;
+          this.dataList = records;
+          this.total = total;
           this.loading = false;
         })
         .catch((err) => {
           console.log("err", err);
           this.loading = false;
         });
+    },
+    setDefaultDate() {
+      const today = new Date();
+      var yesterday = new Date();
+      yesterday.setDate(today.getDate() - 1);
+      today.setHours(0);
+      yesterday.setHours(0);
+      today.setMinutes(0);
+      yesterday.setMinutes(0);
+      today.setSeconds(0);
+      yesterday.setSeconds(0);
+      console.log(yesterday, today);
+      this.queryForm.startTime = yesterday;
+      this.queryForm.endTime = today;
     },
   },
 };
